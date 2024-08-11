@@ -1,0 +1,101 @@
+static List<string> FormeazaLista(string lucru)
+{
+    string[] lucruList = lucru.Split(',');
+    List<string> separate = new List<string>();
+    {
+        for (int i = 0; i < lucruList.Length; i++)
+        {
+            separate.Add(lucruList[i]);
+        }
+    }
+    return separate;
+}
+ 
+static string CaracterRandomizat(List<string> lucru)
+{
+    Random random = new Random();
+    int indexCaracter = random.Next(lucru.Count);
+    string caracterulAles = lucru[indexCaracter];
+    return caracterulAles;
+}
+ 
+static void Permisiune(out int permis)
+{
+    permis = int.Parse(Console.ReadLine());
+}
+ 
+static int SolicitaLungimeaParolei(int lungime)
+{
+    lungime = int.Parse(Console.ReadLine());
+    return lungime;
+}
+ 
+string litereMici = "q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m";
+string litereMari = "Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M";
+string cifre = "1,2,3,4,5,6,7,8,9,0";
+string caractereSpeciale = "~,!,@,#,$,%,^,&,*,(,),_,+,|,},{,:,?,>,<,.,/,',;,[,],=,-,`";
+ 
+List<string> miciList = FormeazaLista(litereMici);
+List<string> mariList = FormeazaLista(litereMari);
+List<string> cifreList = FormeazaLista(cifre);
+List<string> caractereList = FormeazaLista(caractereSpeciale);
+List<string> listaCombinata = new List<string>();
+string parola = "";
+ 
+Console.WriteLine("GENEREAZA PAROLA");
+Console.WriteLine();
+Console.WriteLine("Care este lungimea parolei solicitate?");
+int lungimeaParolei = SolicitaLungimeaParolei(lungime);
+ 
+if (lungimeaParolei == 0)
+{
+    Console.WriteLine("Nu va putem genera o parola!");
+    return;
+}
+Console.WriteLine();
+ 
+Console.WriteLine("Doriti sa utilizati litere mici in generarea parolei?");
+Permisiune(out int permis);
+if (permis != 0)
+{
+    listaCombinata.AddRange(miciList);
+}
+Console.WriteLine();
+ 
+Console.WriteLine("Doriti sa utilizati litere mari in generarea parolei?");
+Permisiune(out permis);
+if (permis != 0)
+{
+    listaCombinata.AddRange(mariList);
+}
+Console.WriteLine();
+ 
+Console.WriteLine("Doriti sa utilizati cifre in generarea parolei?");
+Permisiune(out permis);
+if (permis != 0)
+{
+    listaCombinata.AddRange(cifreList);
+}
+Console.WriteLine();
+ 
+Console.WriteLine("Doriti sa utilizati caractere speciale in generarea parolei?");
+Permisiune(out permis);
+if (permis != 0)
+{
+    listaCombinata.AddRange(caractereList);
+    listaCombinata.Add(",");
+}
+Console.WriteLine();
+ 
+if (listaCombinata.Count == 0)
+{
+    Console.WriteLine("Nu va putem genera o parola!");
+    return;
+}
+ 
+for (int i = 0; i < lungimeaParolei; i++)
+{
+    parola += CaracterRandomizat(listaCombinata);
+}
+ 
+Console.Write("Parola generata este: " + parola);
